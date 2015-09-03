@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import icepick.Icepick;
 import icepick.State;
 import nz.bradcampbell.compartment.PresenterControllerFragment;
+import rx.subjects.PublishSubject;
 
 import static com.example.bradcampbell.app.App.getAppComponent;
 
@@ -29,6 +30,10 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
     @InjectView(R.id.loading) View loadingView;
 
     @State boolean isLoading = false;
+    @State CharSequence data = null;
+
+    private PublishSubject<Boolean> loadingSubject = PublishSubject.create();
+    private PublishSubject<CharSequence> dataSubject = PublishSubject.create();
 
     @Override protected HelloComponent onCreateNonConfigurationComponent() {
         // Return the component that will live until this fragment is destroyed by the user
@@ -60,6 +65,23 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.inject(this, view);
 
+        loadingSubject.subscribe(loading -> {
+            isLoading = loading;
+            loadingView.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            textView.setVisibility(isLoading ? View.GONE : View.VISIBLE);
+        });
+
+        dataSubject.subscribe(data -> {
+            this.data = data;
+            textView.setText(data);
+        });
+
+        // Update loading state
+        loadingSubject.onNext(isLoading);
+
+        // Update data state
+        dataSubject.onNext(data);
+
         // Re-display loading dialog on configuration change if needed
         if (isLoading) {
             showLoading();
@@ -79,19 +101,15 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
     }
 
     @Override public void display(CharSequence stuff) {
-        textView.setText(stuff);
+        dataSubject.onNext(stuff);
     }
 
     @Override public void showLoading() {
-        loadingView.setVisibility(View.VISIBLE);
-        textView.setVisibility(View.GONE);
-        isLoading = true;
+        loadingSubject.onNext(true);
     }
 
     @Override public void hideLoading() {
-        loadingView.setVisibility(View.GONE);
-        textView.setVisibility(View.VISIBLE);
-        isLoading = false;
+        loadingSubject.onNext(false);
     }
 
     @OnClick(R.id.load) public void load() {
