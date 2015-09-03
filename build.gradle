@@ -20,6 +20,5 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://clojars.org/repo/" }
-        maven { url 'https://dl.bintray.com/grandstaish/maven' }
     }
 }
