@@ -82,11 +82,6 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
         // Update data state
         dataSubject.onNext(data);
 
-        // Re-display loading dialog on configuration change if needed
-        if (isLoading) {
-            showLoading();
-        }
-
         // Load data when the user first sees this fragment
         if (savedInstanceState == null) {
             presenter.load();
