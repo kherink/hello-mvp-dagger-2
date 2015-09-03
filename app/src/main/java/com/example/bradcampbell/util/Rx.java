@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell.util;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

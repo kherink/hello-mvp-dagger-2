@@ -3,6 +3,7 @@ package com.example.bradcampbell.presentation;
 import com.example.bradcampbell.app.HelloScope;
 import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
+import com.example.bradcampbell.util.EndObserver;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,9 @@ public class HelloPresenter extends BasePresenter<HelloView> {
 
     private Subscription subscription;
 
+    /**
+     * Load data.
+     */
     public void load() {
         if (subscription != null && !subscription.isUnsubscribed()) {
             return;
@@ -28,10 +32,20 @@ public class HelloPresenter extends BasePresenter<HelloView> {
                 .subscribe(observer);
     }
 
+    /**
+     * This is for demo purposes only. It would be strange to expose cache clearing methods
+     * to the UI. Typically caches would be cleared as a result of some action, not from
+     * pressing a button.
+     */
     public void clearMemoryCache() {
         model.clearMemoryCache().subscribe();
     }
 
+    /**
+     * This is for demo purposes only. It would be strange to expose cache clearing methods
+     * to the UI. Typically caches would be cleared as a result of some action, not from
+     * pressing a button.
+     */
     public void clearMemoryAndDiskCache() {
         model.clearMemoryAndDiskCache().subscribe();
     }
@@ -41,15 +55,11 @@ public class HelloPresenter extends BasePresenter<HelloView> {
         subscription.unsubscribe();
     }
 
-    private Observer<HelloEntity> observer = new Observer<HelloEntity>() {
-        @Override public void onCompleted() {
+    private Observer<HelloEntity> observer = new EndObserver<HelloEntity>() {
+        @Override public void onEnd() {
             if (getView() != null) {
                 getView().hideLoading();
             }
-        }
-
-        @Override public void onError(Throwable e) {
-            // TODO: handle error
         }
 
         @Override public void onNext(HelloEntity entity) {

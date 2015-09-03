@@ -32,6 +32,9 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
     @State boolean isLoading = false;
 
     @Override protected HelloComponent onCreateNonConfigurationComponent() {
+        // Return the component that will live until this fragment is destroyed by the user
+        // (i.e. this component instance will survive configuration changes). Can be later
+        // retrieved using getComponent()
         return DaggerHello1Component.builder()
                 .appComponent(getAppComponent(getActivity()))
                 .build();
@@ -39,7 +42,12 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
 
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Inject dependencies. Note that we could just use getPresenter() from the base
+        // class to get the presenter, but this demonstrates that injecting it works too.
         getComponent().inject(this);
+
+        // Restore all @State annotated members
         Icepick.restoreInstanceState(this, savedInstanceState);
     }
 
@@ -52,15 +60,22 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
     @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.inject(this, view);
+
+        // Re-display loading dialog on configuration change if needed
         if (isLoading) {
             showLoading();
-        } else {
+        }
+
+        // Load data when the user first sees this fragment
+        if (savedInstanceState == null) {
             presenter.load();
         }
     }
 
     @Override public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        // Save state of all @State annotated members
         Icepick.saveInstanceState(this, outState);
     }
 

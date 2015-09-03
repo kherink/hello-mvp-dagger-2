@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import rx.Observable;
 
-import static com.example.bradcampbell.app.Rx.applySchedulers;
+import static com.example.bradcampbell.util.Rx.applySchedulers;
 
 @Singleton
 public class HelloModel {
