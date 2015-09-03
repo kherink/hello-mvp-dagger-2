@@ -1,14 +1,17 @@
 package com.example.bradcampbell.app;
 
-import android.app.Application;
 import android.content.Context;
 
-public class App extends Application {
+import nz.bradcampbell.compartment.ComponentCacheApplication;
+
+public class App extends ComponentCacheApplication {
     private AppComponent component;
 
     @Override public void onCreate() {
         super.onCreate();
-        component = DaggerAppComponent.create();
+        component = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
     }
 
     public static AppComponent getAppComponent(Context context) {

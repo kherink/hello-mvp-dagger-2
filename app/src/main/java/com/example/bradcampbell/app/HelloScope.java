@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app.hello1;
+package com.example.bradcampbell.app;
 
 import java.lang.annotation.Retention;
 
@@ -8,4 +8,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Scope
 @Retention(RUNTIME)
-public @interface Hello1Scope {}
+public @interface HelloScope {}

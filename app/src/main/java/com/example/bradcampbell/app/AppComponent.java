@@ -1,6 +1,8 @@
 package com.example.bradcampbell.app;
 
-import com.squareup.otto.Bus;
+import android.content.SharedPreferences;
+
+import com.example.bradcampbell.domain.HelloModel;
 
 import javax.inject.Singleton;
 
@@ -11,6 +13,6 @@ import dagger.Component;
 )
 @Singleton
 public interface AppComponent {
-    void inject(MainActivity activity);
-    Bus getBus();
+    SharedPreferences getSharedPreferences();
+    HelloModel getHello1Model();
 }

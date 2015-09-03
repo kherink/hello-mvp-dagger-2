@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Hello MVP</string>
-    <string name="help">Try changing configurations!</string>
-    <string name="button">Show a new view</string>
+    <string name="load">Load</string>
+    <string name="clear_memory_cache">Clear memory cache</string>
+    <string name="clear_memory_and_disk_cache">Clear memory and disk cache</string>
 </resources>
