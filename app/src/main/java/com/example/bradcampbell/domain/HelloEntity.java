@@ -13,13 +13,13 @@ public abstract class HelloEntity implements Parcelable {
     private long timestamp;
 
     public static HelloEntity create(int value) {
-        HelloEntity entity = new AutoParcel_Hello1Entity(value);
+        HelloEntity entity = new AutoParcel_HelloEntity(value);
         entity.timestamp = System.currentTimeMillis();
         return entity;
     }
 
     public static HelloEntity create(int value, long timestamp) {
-        HelloEntity entity = new AutoParcel_Hello1Entity(value);
+        HelloEntity entity = new AutoParcel_HelloEntity(value);
         entity.timestamp = timestamp;
         return entity;
     }

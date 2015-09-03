@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bradcampbell.app.hello1.DaggerHello1Component;
 import com.example.bradcampbell.presentation.HelloPresenter;
 import com.example.bradcampbell.presentation.HelloView;
 
@@ -35,7 +34,7 @@ public class HelloFragment extends PresenterControllerFragment<HelloComponent, H
         // Return the component that will live until this fragment is destroyed by the user
         // (i.e. this component instance will survive configuration changes). Can be later
         // retrieved using getComponent()
-        return DaggerHello1Component.builder()
+        return DaggerHelloComponent.builder()
                 .appComponent(getAppComponent(getActivity()))
                 .build();
     }
