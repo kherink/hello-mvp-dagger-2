@@ -3,7 +3,7 @@ package com.example.bradcampbell.presentation;
 import com.example.bradcampbell.app.HelloScope;
 import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
-import com.example.bradcampbell.util.EndObserver;
+import com.example.bradcampbell.app.EndObserver;
 
 import javax.inject.Inject;
 

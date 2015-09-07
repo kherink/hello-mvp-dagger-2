@@ -4,12 +4,12 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.example.bradcampbell.app"
+        applicationId "com.example.bradcampbell"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 21 // Robolectric... wtf
         versionCode 1
         versionName "1.0"
     }
@@ -34,4 +34,7 @@ dependencies {
     compile 'frankiesardo:icepick:3.1.0'
     apt 'frankiesardo:icepick-processor:3.1.0'
     compile 'nz.bradcampbell.compartment:compartment:0.0.2'
+
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.mockito:mockito-core:1.9.5'
 }

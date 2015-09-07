@@ -19,16 +19,24 @@ public class HelloDiskCache {
     }
 
     public Observable<HelloEntity> getEntity() {
-        return Observable.defer(() ->
-                Observable.just(HelloEntity.create(prefs.getInt(KEY_DATA, -1),
-                        prefs.getLong(KEY_TIMESTAMP, 0L))));
+        return Observable.defer(() -> {
+                    Observable<HelloEntity> result;
+                    int data = prefs.getInt(KEY_DATA, -1);
+                    if (data != -1) {
+                        long timestamp = prefs.getLong(KEY_TIMESTAMP, 0L);
+                        result = Observable.just(HelloEntity.create(data, timestamp));
+                    } else {
+                        result = Observable.just(null);
+                    }
+                    return result;
+                });
     }
 
-    public Observable<HelloEntity> saveEntity(HelloEntity value) {
+    public Observable<Void> saveEntity(HelloEntity value) {
         return Observable.defer(() -> {
             prefs.edit().putInt(KEY_DATA, value.value()).commit();
-            prefs.edit().putLong(KEY_TIMESTAMP, value.getTimestamp()).commit();
-            return Observable.just(value);
+            prefs.edit().putLong(KEY_TIMESTAMP, value.timestamp()).commit();
+            return Observable.just(null);
         });
     }
 

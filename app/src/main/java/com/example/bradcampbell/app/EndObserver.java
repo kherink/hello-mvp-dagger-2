@@ -1,4 +1,4 @@
-package com.example.bradcampbell.util;
+package com.example.bradcampbell.app;
 
 import rx.Observer;
 

@@ -10,8 +10,12 @@ public class App extends ComponentCacheApplication {
     @Override public void onCreate() {
         super.onCreate();
         component = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
+                .appModule(getApplicationModule())
                 .build();
+    }
+
+    protected AppModule getApplicationModule() {
+        return new AppModule(this);
     }
 
     public static AppComponent getAppComponent(Context context) {

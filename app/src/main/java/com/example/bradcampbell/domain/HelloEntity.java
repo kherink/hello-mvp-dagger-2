@@ -6,29 +6,10 @@ import auto.parcel.AutoParcel;
 
 @AutoParcel
 public abstract class HelloEntity implements Parcelable {
-    private static final long STALE_MS = 5 * 1000;
-
     public abstract int value();
-
-    private long timestamp;
-
-    public static HelloEntity create(int value) {
-        HelloEntity entity = new AutoParcel_HelloEntity(value);
-        entity.timestamp = System.currentTimeMillis();
-        return entity;
-    }
+    public abstract long timestamp();
 
     public static HelloEntity create(int value, long timestamp) {
-        HelloEntity entity = new AutoParcel_HelloEntity(value);
-        entity.timestamp = timestamp;
-        return entity;
-    }
-
-    public boolean isUpToDate() {
-        return System.currentTimeMillis() - timestamp < STALE_MS;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
+        return new AutoParcel_HelloEntity(value, timestamp);
     }
 }
