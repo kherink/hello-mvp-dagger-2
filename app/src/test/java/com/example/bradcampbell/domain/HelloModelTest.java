@@ -72,6 +72,7 @@ public class HelloModelTest {
         testSubscriberFirst.assertNoErrors();
         testSubscriberFirst.assertReceivedOnNext(singletonList(expectedResult));
 
+        when(cache.getEntity()).thenReturn(Observable.just(nonExpectedResult));
         when(service.getValue()).thenReturn(Observable.just(nonExpectedResult));
 
         TestSubscriber<HelloEntity> testSubscriberSecond = new TestSubscriber<>();
