@@ -9,19 +9,34 @@ android {
     defaultConfig {
         applicationId "com.example.bradcampbell"
         minSdkVersion 16
-        targetSdkVersion 21 // Robolectric... wtf
+        targetSdkVersion 21 // Robolectric...
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "com.example.bradcampbell.MyAndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        androidTest.java.srcDirs = ['src/androidTest/java', 'src/sharedTest/java']
+        test.java.srcDirs = ['src/test/java', 'src/sharedTest/java']
+    }
+
+    buildTypes {
+        debug
+        release
+    }
+}
+
+//noinspection GroovyAssignabilityCheck
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:23.0.0'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'io.reactivex:rxandroid:1.0.1'
@@ -37,4 +52,28 @@ dependencies {
 
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.mockito:mockito-core:1.9.5'
+
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+    androidTestCompile 'org.mockito:mockito-core:1.9.5'
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.9'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.2'
+    }
+}
+
+apply plugin: 'spoon'
+
+spoon {
+    debug = true
 }

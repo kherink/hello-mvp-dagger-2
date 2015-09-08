@@ -43,7 +43,7 @@ public class HelloPresenterTests {
         mockView = mock(HelloView.class);
 
         MockAppModule mockAppModule = new MockAppModule(app);
-        mockAppModule.setOverrideHelloModule(mockModel);
+        mockAppModule.setOverrideHelloModel(mockModel);
 
         AppComponent appComponent = DaggerAppComponent.builder()
                 .appModule(mockAppModule)

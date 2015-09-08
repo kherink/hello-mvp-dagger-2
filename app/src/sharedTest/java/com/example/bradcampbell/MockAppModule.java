@@ -16,7 +16,7 @@ public class MockAppModule extends AppModule {
     private HelloDiskCache overrideHelloDiskCache;
     private SchedulerProvider overrideSchedulerProvider;
     private Clock overrideClock;
-    private HelloModel overrideHelloModule;
+    private HelloModel overrideHelloModel;
 
     public MockAppModule(App app) {
         super(app);
@@ -42,15 +42,15 @@ public class MockAppModule extends AppModule {
         this.overrideClock = overrideClock;
     }
 
-    public void setOverrideHelloModule(HelloModel overrideHelloModule) {
-        this.overrideHelloModule = overrideHelloModule;
+    public void setOverrideHelloModel(HelloModel overrideHelloModel) {
+        this.overrideHelloModel = overrideHelloModel;
     }
 
     @Override
     public HelloModel provideHelloModel(SchedulerProvider schedulerProvider,
                                         HelloDiskCache helloDiskCache, HelloService helloService,
                                         Clock clock) {
-        return overrideHelloModule != null ? overrideHelloModule :
+        return overrideHelloModel != null ? overrideHelloModel :
                 super.provideHelloModel(schedulerProvider, helloDiskCache, helloService, clock);
     }
 
