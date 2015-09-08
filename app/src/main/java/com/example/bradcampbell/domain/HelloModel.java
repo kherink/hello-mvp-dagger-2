@@ -3,23 +3,24 @@ package com.example.bradcampbell.domain;
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import rx.Observable;
 
-@Singleton
 public class HelloModel {
     private static final long STALE_MS = 5 * 1000;
 
     HelloEntity memoryCache;
 
-    @Inject SchedulerProvider schedulerProvider;
-    @Inject HelloDiskCache diskCache;
-    @Inject HelloService networkService;
-    @Inject Clock clock;
+    private final SchedulerProvider schedulerProvider;
+    private final HelloDiskCache diskCache;
+    private final HelloService networkService;
+    private final Clock clock;
 
-    @Inject HelloModel() {
+    public HelloModel(SchedulerProvider schedulerProvider, HelloDiskCache diskCache,
+                      HelloService networkService, Clock clock) {
+        this.schedulerProvider = schedulerProvider;
+        this.diskCache = diskCache;
+        this.networkService = networkService;
+        this.clock = clock;
     }
 
     public Observable<HelloEntity> getValue() {
@@ -36,11 +37,13 @@ public class HelloModel {
 
     public Observable<Void> clearMemoryAndDiskCache() {
         return diskCache.clear()
-                .doOnNext(__ -> memoryCache = null);
+                .doOnNext(__ -> memoryCache = null)
+                .map(__ -> null);
     }
 
     private Observable<HelloEntity> network() {
         return networkService.getValue()
+                .map(data -> HelloEntity.create(data, clock.millis()))
                 .doOnNext(entity -> this.memoryCache = entity)
                 .flatMap(entity -> diskCache.saveEntity(entity).map(__ -> entity))
                 .compose(schedulerProvider.applySchedulers());

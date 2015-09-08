@@ -9,8 +9,9 @@ import javax.inject.Inject;
 import rx.Observable;
 
 public class HelloDiskCache {
-    private static final String KEY_DATA = "value-xyz-data";
-    private static final String KEY_TIMESTAMP = "value-xyz-timestamp";
+    static final int NO_VALUE = -1;
+    static final String KEY_DATA = "value-xyz-data";
+    static final String KEY_TIMESTAMP = "value-xyz-timestamp";
 
     private SharedPreferences prefs;
 
@@ -21,8 +22,8 @@ public class HelloDiskCache {
     public Observable<HelloEntity> getEntity() {
         return Observable.defer(() -> {
                     Observable<HelloEntity> result;
-                    int data = prefs.getInt(KEY_DATA, -1);
-                    if (data != -1) {
+                    int data = prefs.getInt(KEY_DATA, NO_VALUE);
+                    if (data != NO_VALUE) {
                         long timestamp = prefs.getLong(KEY_TIMESTAMP, 0L);
                         result = Observable.just(HelloEntity.create(data, timestamp));
                     } else {
@@ -32,19 +33,21 @@ public class HelloDiskCache {
                 });
     }
 
-    public Observable<Void> saveEntity(HelloEntity value) {
+    public Observable<Boolean> saveEntity(HelloEntity value) {
         return Observable.defer(() -> {
-            prefs.edit().putInt(KEY_DATA, value.value()).commit();
-            prefs.edit().putLong(KEY_TIMESTAMP, value.timestamp()).commit();
-            return Observable.just(null);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt(KEY_DATA, value.value());
+            editor.putLong(KEY_TIMESTAMP, value.timestamp());
+            return Observable.just(editor.commit());
         });
     }
 
-    public Observable<Void> clear() {
+    public Observable<Boolean> clear() {
         return Observable.defer(() -> {
-            prefs.edit().remove(KEY_DATA).commit();
-            prefs.edit().remove(KEY_TIMESTAMP).commit();
-            return Observable.just(null);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove(KEY_DATA);
+            editor.remove(KEY_TIMESTAMP);
+            return Observable.just(editor.commit());
         });
     }
 }

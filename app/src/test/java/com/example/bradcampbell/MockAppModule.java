@@ -7,6 +7,7 @@ import com.example.bradcampbell.app.AppModule;
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
 import com.example.bradcampbell.domain.Clock;
+import com.example.bradcampbell.domain.HelloModel;
 import com.example.bradcampbell.domain.SchedulerProvider;
 
 public class MockAppModule extends AppModule {
@@ -15,6 +16,7 @@ public class MockAppModule extends AppModule {
     private HelloDiskCache overrideHelloDiskCache;
     private SchedulerProvider overrideSchedulerProvider;
     private Clock overrideClock;
+    private HelloModel overrideHelloModule;
 
     public MockAppModule(App app) {
         super(app);
@@ -40,6 +42,18 @@ public class MockAppModule extends AppModule {
         this.overrideClock = overrideClock;
     }
 
+    public void setOverrideHelloModule(HelloModel overrideHelloModule) {
+        this.overrideHelloModule = overrideHelloModule;
+    }
+
+    @Override
+    public HelloModel provideHelloModel(SchedulerProvider schedulerProvider,
+                                        HelloDiskCache helloDiskCache, HelloService helloService,
+                                        Clock clock) {
+        return overrideHelloModule != null ? overrideHelloModule :
+                super.provideHelloModel(schedulerProvider, helloDiskCache, helloService, clock);
+    }
+
     @Override public Clock provideClock() {
         return overrideClock != null ? overrideClock : super.provideClock();
     }
@@ -59,8 +73,8 @@ public class MockAppModule extends AppModule {
                 super.provideHelloDiskCache(prefs);
     }
 
-    @Override public HelloService provideHelloService(Clock clock) {
+    @Override public HelloService provideHelloService() {
         return overrideHelloService != null ? overrideHelloService :
-                super.provideHelloService(clock);
+                super.provideHelloService();
     }
 }

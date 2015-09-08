@@ -1,9 +1,7 @@
 package com.example.bradcampbell.app;
 
-import android.content.SharedPreferences;
-
+import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.domain.HelloModel;
-import com.example.bradcampbell.domain.SchedulerProvider;
 
 import javax.inject.Singleton;
 
@@ -14,7 +12,6 @@ import dagger.Component;
 )
 @Singleton
 public interface AppComponent {
-    SharedPreferences getSharedPreferences();
     HelloModel getHelloModel();
-    SchedulerProvider getSchedulerProvider();
+    HelloDiskCache getHelloDiskCache();
 }

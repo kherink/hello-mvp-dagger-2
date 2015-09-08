@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
 import com.example.bradcampbell.domain.Clock;
+import com.example.bradcampbell.domain.HelloModel;
 import com.example.bradcampbell.domain.SchedulerProvider;
 
 import javax.inject.Singleton;
@@ -25,12 +26,19 @@ public class AppModule {
         return PreferenceManager.getDefaultSharedPreferences(app);
     }
 
+    @Provides @Singleton public HelloModel provideHelloModel(SchedulerProvider schedulerProvider,
+                                                             HelloDiskCache helloDiskCache,
+                                                             HelloService helloService,
+                                                             Clock clock) {
+        return new HelloModel(schedulerProvider, helloDiskCache, helloService, clock);
+    }
+
     @Provides public HelloDiskCache provideHelloDiskCache(SharedPreferences prefs) {
         return new HelloDiskCache(prefs);
     }
 
-    @Provides public HelloService provideHelloService(Clock clock) {
-        return new HelloService(clock);
+    @Provides public HelloService provideHelloService() {
+        return new HelloService();
     }
 
     @Provides public SchedulerProvider provideSchedulerProvider() {

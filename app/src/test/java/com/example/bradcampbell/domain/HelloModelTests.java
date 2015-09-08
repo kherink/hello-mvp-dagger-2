@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
         application = TestApp.class)
-public class HelloModelTest {
+public class HelloModelTests {
     private HelloModel model;
     private HelloService service;
     private HelloDiskCache cache;
@@ -59,11 +59,11 @@ public class HelloModelTest {
         model = appComponent.getHelloModel();
     }
 
-    @Test public void testHitsMemoryCache() throws Exception {
+    @Test public void testHitsMemoryCache() {
         HelloEntity expectedResult = HelloEntity.create(1, 0L);
         HelloEntity nonExpectedResult = HelloEntity.create(2, 0L);
 
-        when(service.getValue()).thenReturn(Observable.just(expectedResult));
+        when(service.getValue()).thenReturn(Observable.just(1));
         when(cache.getEntity()).thenReturn(Observable.just(null));
         when(clock.millis()).thenReturn(0L);
 
@@ -73,7 +73,7 @@ public class HelloModelTest {
         testSubscriberFirst.assertReceivedOnNext(singletonList(expectedResult));
 
         when(cache.getEntity()).thenReturn(Observable.just(nonExpectedResult));
-        when(service.getValue()).thenReturn(Observable.just(nonExpectedResult));
+        when(service.getValue()).thenReturn(Observable.just(2));
 
         TestSubscriber<HelloEntity> testSubscriberSecond = new TestSubscriber<>();
         model.getValue().subscribe(testSubscriberSecond);
@@ -81,11 +81,10 @@ public class HelloModelTest {
         testSubscriberSecond.assertReceivedOnNext(singletonList(expectedResult));
     }
 
-    @Test public void testHitsDiskCache() throws Exception {
+    @Test public void testHitsDiskCache() {
         HelloEntity expectedResult = HelloEntity.create(1, 0L);
-        HelloEntity nonExpectedResult = HelloEntity.create(2, 0L);
 
-        when(service.getValue()).thenReturn(Observable.just(expectedResult));
+        when(service.getValue()).thenReturn(Observable.just(1));
         when(cache.getEntity()).thenReturn(Observable.just(null));
         when(clock.millis()).thenReturn(0L);
 
@@ -96,7 +95,7 @@ public class HelloModelTest {
 
         model.memoryCache = null;
         when(cache.getEntity()).thenReturn(Observable.just(expectedResult));
-        when(service.getValue()).thenReturn(Observable.just(nonExpectedResult));
+        when(service.getValue()).thenReturn(Observable.just(2));
 
         TestSubscriber<HelloEntity> testSubscriberSecond = new TestSubscriber<>();
         model.getValue().subscribe(testSubscriberSecond);
@@ -104,7 +103,7 @@ public class HelloModelTest {
         testSubscriberSecond.assertReceivedOnNext(singletonList(expectedResult));
     }
 
-    @Test public void testCacheExpiry() throws Exception {
+    @Test public void testCacheExpiry() {
         HelloEntity expectedResultFirst = HelloEntity.create(1, 0L);
         when(service.getValue()).thenReturn(Observable.empty());
         when(cache.getEntity()).thenReturn(Observable.just(expectedResultFirst));
@@ -122,12 +121,11 @@ public class HelloModelTest {
         testSubscriberSecond.assertReceivedOnNext(singletonList(expectedResultFirst));
 
         when(clock.millis()).thenReturn(5000L);
-        HelloEntity expectedResultSecond = HelloEntity.create(2, clock.millis());
-        when(service.getValue()).thenReturn(Observable.just(expectedResultSecond));
+        when(service.getValue()).thenReturn(Observable.just(2));
 
         TestSubscriber<HelloEntity> testSubscriberThird = new TestSubscriber<>();
         model.getValue().subscribe(testSubscriberThird);
         testSubscriberThird.assertNoErrors();
-        testSubscriberThird.assertReceivedOnNext(singletonList(expectedResultSecond));
+        testSubscriberThird.assertReceivedOnNext(singletonList(HelloEntity.create(2, 5000L)));
     }
 }
