@@ -4,5 +4,4 @@ MVP example code using RxJava, Retrolambda, Dagger 2, and Compartment (https://g
 
 The app demonstrates all parts of MVP (Model, View, and Presenter). It demostrates getting data from a fake service and caching it in memory and to disk. The cached data is valud for 5 seconds, or until manually cleared by the user. It uses many of the tips gained from reading various popular Android development blogs. 
 
-This code sample also demonstrates unit testing with Dagger 2 and RxJava.
-
+This code sample also demonstrates unit testing with Android Studio's unit testing support, as well as instrumentation testing with Espresso and Spoon. 
