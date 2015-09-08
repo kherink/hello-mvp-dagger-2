@@ -2,8 +2,6 @@ package com.example.bradcampbell;
 
 import android.content.SharedPreferences;
 
-import com.example.bradcampbell.app.App;
-import com.example.bradcampbell.app.AppModule;
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
 import com.example.bradcampbell.domain.Clock;

@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

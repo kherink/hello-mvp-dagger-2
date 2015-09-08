@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell.ui;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell.ui;
 
 import java.lang.annotation.Retention;
 

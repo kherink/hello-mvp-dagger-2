@@ -1,5 +1,6 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell.ui;
 
+import com.example.bradcampbell.AppComponent;
 import com.example.bradcampbell.presentation.HelloPresenter;
 
 import dagger.Component;

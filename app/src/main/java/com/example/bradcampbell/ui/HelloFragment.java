@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +22,7 @@ import icepick.State;
 import nz.bradcampbell.compartment.PresenterControllerFragment;
 import rx.subjects.PublishSubject;
 
-import static com.example.bradcampbell.app.App.getAppComponent;
+import static com.example.bradcampbell.App.getAppComponent;
 
 public class HelloFragment extends PresenterControllerFragment<HelloComponent, HelloPresenter> implements HelloView {
     @Inject HelloPresenter presenter;

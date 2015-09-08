@@ -1,14 +1,14 @@
 package com.example.bradcampbell.presentation;
 
+import com.example.bradcampbell.AppComponent;
 import com.example.bradcampbell.BuildConfig;
+import com.example.bradcampbell.DaggerAppComponent;
 import com.example.bradcampbell.MockAppModule;
 import com.example.bradcampbell.TestApp;
-import com.example.bradcampbell.app.AppComponent;
-import com.example.bradcampbell.app.DaggerAppComponent;
-import com.example.bradcampbell.app.DaggerHelloComponent;
-import com.example.bradcampbell.app.HelloComponent;
 import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
+import com.example.bradcampbell.ui.DaggerHelloComponent;
+import com.example.bradcampbell.ui.HelloComponent;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -8,9 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 
-import com.example.bradcampbell.app.App;
-import com.example.bradcampbell.app.HelloFragment;
-import com.example.bradcampbell.app.MainActivity;
+import com.example.bradcampbell.ui.HelloFragment;
+import com.example.bradcampbell.ui.MainActivity;
 import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
 

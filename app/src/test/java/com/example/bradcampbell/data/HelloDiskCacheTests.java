@@ -3,11 +3,11 @@ package com.example.bradcampbell.data;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 
+import com.example.bradcampbell.AppComponent;
 import com.example.bradcampbell.BuildConfig;
+import com.example.bradcampbell.DaggerAppComponent;
 import com.example.bradcampbell.MockAppModule;
 import com.example.bradcampbell.TestApp;
-import com.example.bradcampbell.app.AppComponent;
-import com.example.bradcampbell.app.DaggerAppComponent;
 import com.example.bradcampbell.domain.HelloEntity;
 
 import org.junit.Before;

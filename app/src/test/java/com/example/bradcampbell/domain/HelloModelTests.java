@@ -1,10 +1,10 @@
 package com.example.bradcampbell.domain;
 
+import com.example.bradcampbell.AppComponent;
 import com.example.bradcampbell.BuildConfig;
+import com.example.bradcampbell.DaggerAppComponent;
 import com.example.bradcampbell.MockAppModule;
 import com.example.bradcampbell.TestApp;
-import com.example.bradcampbell.app.AppComponent;
-import com.example.bradcampbell.app.DaggerAppComponent;
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
 

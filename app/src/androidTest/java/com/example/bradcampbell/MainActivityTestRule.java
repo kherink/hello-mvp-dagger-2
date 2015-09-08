@@ -3,7 +3,7 @@ package com.example.bradcampbell;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 
-import com.example.bradcampbell.app.MainActivity;
+import com.example.bradcampbell.ui.MainActivity;
 
 public class MainActivityTestRule extends ActivityTestRule<MainActivity> {
     public MainActivityTestRule() {

@@ -1,4 +1,4 @@
-package com.example.bradcampbell.app;
+package com.example.bradcampbell;
 
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.domain.HelloModel;
