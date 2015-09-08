@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.bradcampbell"
-        minSdkVersion 16
+        minSdkVersion 9
         targetSdkVersion 21 // Robolectric...
         versionCode 1
         versionName "1.0"
@@ -48,7 +48,7 @@ dependencies {
     apt 'com.github.frankiesardo:auto-parcel-processor:0.3.1'
     compile 'frankiesardo:icepick:3.1.0'
     apt 'frankiesardo:icepick-processor:3.1.0'
-    compile 'nz.bradcampbell.compartment:compartment:0.0.2'
+    compile 'nz.bradcampbell.compartment:compartment:0.0.3'
 
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.mockito:mockito-core:1.9.5'
