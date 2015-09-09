@@ -2,16 +2,13 @@ package com.example.bradcampbell;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.FragmentManager;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 
-import com.example.bradcampbell.ui.HelloFragment;
-import com.example.bradcampbell.ui.MainActivity;
 import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
+import com.example.bradcampbell.ui.HelloFragment;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,7 +36,7 @@ import static rx.android.schedulers.AndroidSchedulers.mainThread;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class HelloFragmentTests {
-    @Rule public final ActivityTestRule<MainActivity> main = new MainActivityTestRule();
+    @Rule public final MainActivityTestRule main = new MainActivityTestRule();
 
     private HelloModel mockHelloModel;
 
@@ -66,11 +63,6 @@ public class HelloFragmentTests {
             }
             return null;
         });
-
-        FragmentManager fragmentManager = main.getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.root, new HelloFragment())
-                .commit();
     }
 
     @After public void tearDown() {
@@ -82,8 +74,9 @@ public class HelloFragmentTests {
         Observable<HelloEntity> result = just(HelloEntity.create(0, 0L))
                 .subscribeOn(testScheduler)
                 .observeOn(mainThread());
-
         when(mockHelloModel.getValue()).thenReturn(result);
+
+        main.setFragment(new HelloFragment());
 
         onView(withId(R.id.loading)).check(matches(isDisplayed()));
         onView(withId(R.id.text_view)).check(matches(not(isDisplayed())));
@@ -103,19 +96,17 @@ public class HelloFragmentTests {
         Observable<HelloEntity> result = just(HelloEntity.create(0, 0L))
                 .subscribeOn(testScheduler)
                 .observeOn(mainThread());
-
         when(mockHelloModel.getValue()).thenReturn(result);
 
-        onView(withId(R.id.load)).perform(click());
-        onView(withId(R.id.load)).perform(click());
+        main.setFragment(new HelloFragment());
 
+        verify(mockHelloModel, times(1)).getValue();
+        onView(withId(R.id.load)).perform(click());
         verify(mockHelloModel, times(1)).getValue();
 
         testScheduler.triggerActions();
 
         onView(withId(R.id.load)).perform(click());
-        onView(withId(R.id.load)).perform(click());
-
         verify(mockHelloModel, times(2)).getValue();
 
         screenshot(main.getActivity(), "end");
