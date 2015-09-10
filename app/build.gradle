@@ -12,7 +12,7 @@ android {
         targetSdkVersion 21 // Robolectric...
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.example.bradcampbell.MyAndroidJUnitRunner"
+        testInstrumentationRunner "com.example.bradcampbell.TestAppAndroidJUnitRunner"
     }
 
     compileOptions {

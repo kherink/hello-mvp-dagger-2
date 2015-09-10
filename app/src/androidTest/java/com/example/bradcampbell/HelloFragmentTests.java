@@ -1,7 +1,6 @@
 package com.example.bradcampbell;
 
 import android.app.Instrumentation;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -16,13 +15,13 @@ import com.example.bradcampbell.domain.HelloModel;
 import com.example.bradcampbell.ui.HelloFragment;
 import com.example.bradcampbell.ui.MainActivity;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import rx.Observable;
+import rx.Scheduler;
 import rx.schedulers.TestScheduler;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
@@ -46,15 +45,15 @@ public class HelloFragmentTests {
     @Rule public final ActivityTestRule<MainActivity> main =
             new ActivityTestRule<>(MainActivity.class, false, false);
 
+    @Rule public final TestAppComponentRule componentRule = new TestAppComponentRule();
+
     private HelloModel mockHelloModel;
 
     @Before public void setup() throws Throwable {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        TestApp app = (TestApp) instrumentation.getTargetContext().getApplicationContext();
-
         // Set up application module
         mockHelloModel = mock(HelloModel.class);
-        MockAppModule mockAppModule = new MockAppModule(app);
+
+        MockAppModule mockAppModule = componentRule.getMockAppModule();
         mockAppModule.setOverrideHelloModel(mockHelloModel);
         mockAppModule.setOverrideLayoutInflaterFactory((parent, name, context, attrs) -> {
             View result = null;
@@ -75,34 +74,15 @@ public class HelloFragmentTests {
             }
             return result;
         });
-        app.setOverrideModule(mockAppModule);
 
         // Launch main activity
-        Intent mainActivityIntent = MainActivity.getStartIntent(getTargetContext(), false);
-        main.launchActivity(mainActivityIntent);
-    }
-
-    @After public void tearDown() {
-        App.clearAppComponent(main.getActivity());
+        main.launchActivity(MainActivity.getStartIntent(getTargetContext(), false));
     }
 
     @Test public void testLoadingDisplaysCorrectly() throws Throwable {
-        // Build mock data
         TestScheduler testScheduler = new TestScheduler();
-        Observable<HelloEntity> result = just(HelloEntity.create(0, 0L))
-                .subscribeOn(testScheduler)
-                .observeOn(mainThread());
-        when(mockHelloModel.getValue()).thenReturn(result);
-
-        // Add fragment
-        FragmentManager fragmentManager = main.getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.root, new HelloFragment())
-                .commit();
-
-        // Wait for the fragment to be committed
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        instrumentation.waitForIdleSync();
+        setupMockHelloModuleResult(testScheduler, 0, 0L);
+        setupFragment();
 
         // Check loading is showing
         onView(withId(R.id.loading)).check(matches(isDisplayed()));
@@ -121,22 +101,9 @@ public class HelloFragmentTests {
     }
 
     @Test public void ensureOnlyOneRequestCanBeExecutedAtATime() throws Throwable {
-        // Build mock data
         TestScheduler testScheduler = new TestScheduler();
-        Observable<HelloEntity> result = just(HelloEntity.create(0, 0L))
-                .subscribeOn(testScheduler)
-                .observeOn(mainThread());
-        when(mockHelloModel.getValue()).thenReturn(result);
-
-        // Add fragment
-        FragmentManager fragmentManager = main.getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.root, new HelloFragment())
-                .commit();
-
-        // Wait for the fragment to be committed
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        instrumentation.waitForIdleSync();
+        setupMockHelloModuleResult(testScheduler, 0, 0L);
+        setupFragment();
 
         // Verify the initial getValue call was made
         verify(mockHelloModel, times(1)).getValue();
@@ -153,5 +120,24 @@ public class HelloFragmentTests {
         verify(mockHelloModel, times(2)).getValue();
 
         screenshot(main.getActivity(), "end");
+    }
+
+    private void setupMockHelloModuleResult(Scheduler scheduler, int value, long timestamp) {
+        Observable<HelloEntity> result = just(HelloEntity.create(value, timestamp))
+                .subscribeOn(scheduler)
+                .observeOn(mainThread());
+
+        when(mockHelloModel.getValue()).thenReturn(result);
+    }
+
+    private void setupFragment() {
+        FragmentManager fragmentManager = main.getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.root, new HelloFragment())
+                .commit();
+
+        // Wait for the fragment to be committed
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        instrumentation.waitForIdleSync();
     }
 }
