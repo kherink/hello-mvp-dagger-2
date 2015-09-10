@@ -52,7 +52,6 @@ public class HelloFragmentTests {
     @Before public void setup() throws Throwable {
         // Set up application module
         mockHelloModel = mock(HelloModel.class);
-
         MockAppModule mockAppModule = componentRule.getMockAppModule();
         mockAppModule.setOverrideHelloModel(mockHelloModel);
         mockAppModule.setOverrideLayoutInflaterFactory((parent, name, context, attrs) -> {
