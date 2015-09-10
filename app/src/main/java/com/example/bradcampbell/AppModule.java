@@ -2,6 +2,8 @@ package com.example.bradcampbell;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
+import android.support.v4.view.LayoutInflaterFactory;
 
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
@@ -47,5 +49,9 @@ public class AppModule {
 
     @Provides public Clock provideClock() {
         return Clock.REAL;
+    }
+
+    @Provides @Nullable public LayoutInflaterFactory provideLayoutInflaterFactory() {
+        return null;
     }
 }

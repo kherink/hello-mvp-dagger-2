@@ -1,6 +1,7 @@
 package com.example.bradcampbell;
 
 import android.content.SharedPreferences;
+import android.support.v4.view.LayoutInflaterFactory;
 
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
@@ -15,6 +16,7 @@ public class MockAppModule extends AppModule {
     private SchedulerProvider overrideSchedulerProvider;
     private Clock overrideClock;
     private HelloModel overrideHelloModel;
+    private LayoutInflaterFactory overrideLayoutInflaterFactory;
 
     public MockAppModule(App app) {
         super(app);
@@ -42,6 +44,15 @@ public class MockAppModule extends AppModule {
 
     public void setOverrideHelloModel(HelloModel overrideHelloModel) {
         this.overrideHelloModel = overrideHelloModel;
+    }
+
+    public void setOverrideLayoutInflaterFactory(LayoutInflaterFactory overrideLayoutInflaterFactory) {
+        this.overrideLayoutInflaterFactory = overrideLayoutInflaterFactory;
+    }
+
+    @Override public LayoutInflaterFactory provideLayoutInflaterFactory() {
+        return overrideLayoutInflaterFactory != null ? overrideLayoutInflaterFactory :
+                super.provideLayoutInflaterFactory();
     }
 
     @Override
