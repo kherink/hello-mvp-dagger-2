@@ -81,7 +81,7 @@ public class HelloFragmentTests {
 
     @Test public void testLoadingDisplaysCorrectly() throws Throwable {
         TestScheduler testScheduler = new TestScheduler();
-        setupMockHelloModuleResult(testScheduler, 0, 0L);
+        setupMockHelloModelResult(testScheduler, 0, 0L);
         setupFragment();
 
         // Check loading is showing
@@ -102,7 +102,7 @@ public class HelloFragmentTests {
 
     @Test public void ensureOnlyOneRequestCanBeExecutedAtATime() throws Throwable {
         TestScheduler testScheduler = new TestScheduler();
-        setupMockHelloModuleResult(testScheduler, 0, 0L);
+        setupMockHelloModelResult(testScheduler, 0, 0L);
         setupFragment();
 
         // Verify the initial getValue call was made
@@ -122,7 +122,7 @@ public class HelloFragmentTests {
         screenshot(main.getActivity(), "end");
     }
 
-    private void setupMockHelloModuleResult(Scheduler scheduler, int value, long timestamp) {
+    private void setupMockHelloModelResult(Scheduler scheduler, int value, long timestamp) {
         Observable<HelloEntity> result = just(HelloEntity.create(value, timestamp))
                 .subscribeOn(scheduler)
                 .observeOn(mainThread());
