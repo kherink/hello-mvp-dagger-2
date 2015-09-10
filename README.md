@@ -4,7 +4,7 @@ MVP example code using RxJava, Retrolambda, Dagger 2, and Compartment (https://g
 
 The app demonstrates all parts of MVP (Model, View, and Presenter). It demostrates getting data from a fake service and caching it in memory and to disk. The cached data is valud for 5 seconds, or until manually cleared by the user. 
 
-The project demonstrates techniques (as I understand them) from Dan Lew's blog such as loading data from multiple sources (http://blog.danlew.net/2015/06/22/loading-data-from-multiple-sources-with-rxjava/, using compose (http://blog.danlew.net/2015/03/02/dont-break-the-chain/), and deferring code until subscription (http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/) to name a few.
+The project demonstrates techniques (as I understand them) from Dan Lew's blog such as loading data from multiple sources (http://blog.danlew.net/2015/06/22/loading-data-from-multiple-sources-with-rxjava/), using compose (http://blog.danlew.net/2015/03/02/dont-break-the-chain/), and deferring code until subscription (http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/) to name a few.
 
 The project also has working Espresso tests that run with Spoon, as well as Unit Tests that run with Robolectric. The testing side of things I think some of you might find interesting as I had to solve a few problems that I hadn't seen very good solutions for:
 
