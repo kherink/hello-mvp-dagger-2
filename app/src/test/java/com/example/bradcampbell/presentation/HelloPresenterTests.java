@@ -1,5 +1,13 @@
 package com.example.bradcampbell.presentation;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static rx.Observable.just;
+
 import com.example.bradcampbell.AppComponent;
 import com.example.bradcampbell.BuildConfig;
 import com.example.bradcampbell.DaggerAppComponent;
@@ -9,28 +17,19 @@ import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
 import com.example.bradcampbell.ui.DaggerHelloComponent;
 import com.example.bradcampbell.ui.HelloComponent;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-
 import rx.Observable;
 import rx.schedulers.TestScheduler;
 
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static rx.Observable.just;
-
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
-        application = TestApp.class)
+        application = TestApp.class,
+        sdk = 21)
 public class HelloPresenterTests {
     private HelloPresenter presenter;
     private HelloModel mockModel;

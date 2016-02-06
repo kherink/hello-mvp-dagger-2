@@ -1,26 +1,5 @@
 package com.example.bradcampbell.data;
 
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-
-import com.example.bradcampbell.AppComponent;
-import com.example.bradcampbell.BuildConfig;
-import com.example.bradcampbell.DaggerAppComponent;
-import com.example.bradcampbell.MockAppModule;
-import com.example.bradcampbell.TestApp;
-import com.example.bradcampbell.domain.HelloEntity;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
-
-import rx.observers.TestSubscriber;
-
 import static com.example.bradcampbell.data.HelloDiskCache.KEY_DATA;
 import static com.example.bradcampbell.data.HelloDiskCache.KEY_TIMESTAMP;
 import static com.example.bradcampbell.data.HelloDiskCache.NO_VALUE;
@@ -33,9 +12,29 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+
+import com.example.bradcampbell.AppComponent;
+import com.example.bradcampbell.BuildConfig;
+import com.example.bradcampbell.DaggerAppComponent;
+import com.example.bradcampbell.MockAppModule;
+import com.example.bradcampbell.TestApp;
+import com.example.bradcampbell.domain.HelloEntity;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
+import rx.observers.TestSubscriber;
+
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
-        application = TestApp.class)
+        application = TestApp.class,
+        sdk = 21)
 public class HelloDiskCacheTests {
     private HelloDiskCache cache;
     private SharedPreferences prefs;

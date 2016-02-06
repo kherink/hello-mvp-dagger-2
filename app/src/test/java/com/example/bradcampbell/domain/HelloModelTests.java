@@ -1,5 +1,10 @@
 package com.example.bradcampbell.domain;
 
+import static java.util.Collections.singletonList;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.example.bradcampbell.AppComponent;
 import com.example.bradcampbell.BuildConfig;
 import com.example.bradcampbell.DaggerAppComponent;
@@ -7,25 +12,19 @@ import com.example.bradcampbell.MockAppModule;
 import com.example.bradcampbell.TestApp;
 import com.example.bradcampbell.data.HelloDiskCache;
 import com.example.bradcampbell.data.HelloService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
-import static java.util.Collections.singletonList;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
-        application = TestApp.class)
+        application = TestApp.class,
+        sdk = 21)
 public class HelloModelTests {
     private HelloModel model;
     private HelloService service;
