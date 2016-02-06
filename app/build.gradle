@@ -48,7 +48,7 @@ dependencies {
     apt 'com.github.frankiesardo:auto-parcel-processor:0.3.1'
     compile 'frankiesardo:icepick:3.1.0'
     apt 'frankiesardo:icepick-processor:3.1.0'
-    compile 'nz.bradcampbell.compartment:compartment:0.0.3'
+    compile 'nz.bradcampbell.compartment:compartment:0.0.4'
 
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.mockito:mockito-core:1.9.5'

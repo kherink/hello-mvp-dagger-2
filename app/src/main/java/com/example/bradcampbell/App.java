@@ -1,10 +1,9 @@
 package com.example.bradcampbell;
 
+import android.app.Application;
 import android.content.Context;
 
-import nz.bradcampbell.compartment.ComponentCacheApplication;
-
-public class App extends ComponentCacheApplication {
+public class App extends Application {
     private AppComponent component;
 
     protected AppModule getApplicationModule() {

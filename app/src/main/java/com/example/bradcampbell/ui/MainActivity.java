@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
 import com.example.bradcampbell.App;
 import com.example.bradcampbell.R;
+import nz.bradcampbell.compartment.ComponentCacheActivity;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ComponentCacheActivity {
     public static final String FLAG_COMMIT_FRAGMENT = "commitFragment";
 
     @Inject @Nullable LayoutInflaterFactory layoutInflaterHook;
