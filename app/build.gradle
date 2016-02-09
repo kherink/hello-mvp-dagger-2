@@ -29,37 +29,55 @@ android {
         debug
         release
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 //noinspection GroovyAssignabilityCheck
 configurations.all {
-    resolutionStrategy.force 'com.android.support:support-annotations:23.1.1'
+    resolutionStrategy.force deps.supportannotations
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.google.dagger:dagger:2.0'
-    apt 'com.google.dagger:dagger-compiler:2.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    compile 'com.github.frankiesardo:auto-parcel:0.3.1'
-    apt 'com.github.frankiesardo:auto-parcel-processor:0.3.1'
-    compile 'frankiesardo:icepick:3.1.0'
-    apt 'frankiesardo:icepick-processor:3.1.0'
-    compile 'nz.bradcampbell.compartment:compartment:0.0.4'
+    // Support
+    compile deps.appcompat
 
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile 'org.mockito:mockito-core:1.9.5'
+    // RxJava
+    compile deps.rxjava
+    compile deps.rxandroid
 
-    androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.android.support.test:rules:0.3'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
-    androidTestCompile 'org.mockito:mockito-core:1.9.5'
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.9'
+    // ButterKnife
+    compile deps.butterknife
+
+    // Dagger
+    compile deps.dagger
+    apt deps.daggercompiler
+    provided deps.glassfishannotations
+
+    // AutoValue / PaperParcel
+    compile deps.autovalue
+    compile deps.paperparcel
+    apt deps.paperparcelcompiler
+
+    // Icepick
+    compile deps.icepick
+    apt deps.icepickcompiler
+
+    // Unit
+    testCompile deps.junit
+    testCompile deps.robolectric
+    testCompile deps.mockito
+
+    // Integration
+    androidTestCompile deps.testrunner
+    androidTestCompile deps.testrules
+    androidTestCompile deps.espresso
+    androidTestCompile deps.mockito
+    androidTestCompile deps.dexmaker
+    androidTestCompile deps.dexmakermockito
+    androidTestCompile deps.spoon
 }
 
 buildscript {

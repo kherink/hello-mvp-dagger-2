@@ -57,8 +57,7 @@ public class MockAppModule extends AppModule {
 
     @Override
     public HelloModel provideHelloModel(SchedulerProvider schedulerProvider,
-                                        HelloDiskCache helloDiskCache, HelloService helloService,
-                                        Clock clock) {
+                                        HelloDiskCache helloDiskCache, HelloService helloService, Clock clock) {
         return overrideHelloModel != null ? overrideHelloModel :
                 super.provideHelloModel(schedulerProvider, helloDiskCache, helloService, clock);
     }

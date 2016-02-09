@@ -132,10 +132,7 @@ public class HelloDiskCacheTests {
         doAnswer(incrementCount).when(editorMock).commit();
         doAnswer(incrementCount).when(editorMock).apply();
 
-        TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-        cache.clear().subscribe(testSubscriber);
-        testSubscriber.assertNoErrors();
-        testSubscriber.assertReceivedOnNext(singletonList(TRUE));
+        cache.clear();
 
         verify(editorMock).remove(KEY_DATA);
         verify(editorMock).remove(KEY_TIMESTAMP);

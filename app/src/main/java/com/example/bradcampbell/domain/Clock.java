@@ -1,7 +1,7 @@
 package com.example.bradcampbell.domain;
 
 public interface Clock {
-    long millis();
+  long millis();
 
-    Clock REAL = System::currentTimeMillis;
+  Clock REAL = System::currentTimeMillis;
 }
