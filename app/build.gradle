@@ -61,10 +61,6 @@ dependencies {
     compile deps.paperparcel
     apt deps.paperparcelcompiler
 
-    // Icepick
-    compile deps.icepick
-    apt deps.icepickcompiler
-
     // Unit
     testCompile deps.junit
     testCompile deps.robolectric
