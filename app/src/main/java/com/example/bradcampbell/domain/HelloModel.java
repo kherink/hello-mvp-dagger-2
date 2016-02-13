@@ -26,6 +26,7 @@ public class HelloModel {
     this.clock = clock;
   }
 
+  // http://blog.bradcampbell.nz/keep-your-main-thread-synchronous/
   public Observable<HelloEntity> value() {
     if (helloSubscription == null || helloSubscription.isUnsubscribed()) {
       helloSubject = ReplaySubject.create();
