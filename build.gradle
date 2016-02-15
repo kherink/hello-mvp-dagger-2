@@ -31,7 +31,7 @@ ext.deps = [
     appcompat: 'com.android.support:appcompat-v7:23.1.1',
 
     // RxJava
-    rxjava: 'io.reactivex:rxjava:1.1.0',
+    rxjava: 'io.reactivex:rxjava:1.1.1',
     rxandroid: 'io.reactivex:rxandroid:1.1.0',
 
     // ButterKnife
@@ -44,8 +44,8 @@ ext.deps = [
 
     // AutoValue / PaperParcel
     autovalue: 'com.google.auto.value:auto-value:1.2-SNAPSHOT',
-    paperparcel: 'com.github.grandstaish.paperparcel:paperparcel:0.9.9',
-    paperparcelcompiler: 'com.github.grandstaish.paperparcel:compiler:0.9.9',
+    paperparcel: 'com.github.grandstaish.paperparcel:paperparcel:1.0.0-beta1',
+    paperparcelcompiler: 'com.github.grandstaish.paperparcel:compiler:1.0.0-beta1',
 
     // Unit test dependencies
     junit: 'junit:junit:4.12',
