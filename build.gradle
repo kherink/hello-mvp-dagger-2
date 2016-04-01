@@ -31,7 +31,7 @@ ext.deps = [
     appcompat: 'com.android.support:appcompat-v7:23.1.1',
 
     // RxJava
-    rxjava: 'io.reactivex:rxjava:1.1.1',
+    rxjava: 'io.reactivex:rxjava:1.1.2',
     rxandroid: 'io.reactivex:rxandroid:1.1.0',
 
     // ButterKnife
@@ -58,5 +58,5 @@ ext.deps = [
     espresso: 'com.android.support.test.espresso:espresso-core:2.2',
     dexmaker: 'com.google.dexmaker:dexmaker:1.2',
     dexmakermockito: 'com.google.dexmaker:dexmaker-mockito:1.2',
-    spoon: 'com.squareup.spoon:spoon-client:1.1.9'
+    spoon: 'com.squareup.spoon:spoon-client:1.3.1'
 ]

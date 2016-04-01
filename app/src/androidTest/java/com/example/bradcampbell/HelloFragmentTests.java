@@ -1,17 +1,5 @@
 package com.example.bradcampbell;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static com.squareup.spoon.Spoon.screenshot;
-import static org.hamcrest.CoreMatchers.not;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static rx.Observable.just;
-import static rx.android.schedulers.AndroidSchedulers.mainThread;
-
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
@@ -21,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
-
 import com.example.bradcampbell.domain.HelloEntity;
 import com.example.bradcampbell.domain.HelloModel;
 import com.example.bradcampbell.ui.HelloFragment;
@@ -33,6 +20,17 @@ import org.junit.runner.RunWith;
 import rx.Observable;
 import rx.Scheduler;
 import rx.schedulers.TestScheduler;
+
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.CoreMatchers.not;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static rx.Observable.just;
+import static rx.android.schedulers.AndroidSchedulers.mainThread;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -81,7 +79,8 @@ public class HelloFragmentTests {
     onView(withId(R.id.loading)).check(matches(isDisplayed()));
     onView(withId(R.id.text_view)).check(matches(not(isDisplayed())));
 
-    screenshot(main.getActivity(), "loading");
+    //XXX this doesn't work for me on Android M, looks like it will be addressed by https://github.com/square/spoon/pull/315
+    //screenshot(main.getActivity(), "loading");
 
     // Trigger onNext/onCompleted
     testScheduler.triggerActions();
@@ -90,7 +89,8 @@ public class HelloFragmentTests {
     onView(withId(R.id.loading)).check(matches(not(isDisplayed())));
     onView(withId(R.id.text_view)).check(matches(isDisplayed()));
 
-    screenshot(main.getActivity(), "result");
+    //XXX  as above - this doesn't work for me on Android M, looks like it will be addressed by https://github.com/square/spoon/pull/315
+    //screenshot(main.getActivity(), "result");
   }
 
   private void setupMockHelloModelResult(Scheduler scheduler, int value, long timestamp) {
@@ -105,7 +105,7 @@ public class HelloFragmentTests {
     FragmentManager fragmentManager = main.getActivity().getSupportFragmentManager();
     fragmentManager.beginTransaction()
         .replace(R.id.root, new HelloFragment())
-        .commit();
+        .commitAllowingStateLoss();
 
     // Wait for the fragment to be committed
     Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
